@@ -18,7 +18,9 @@ class Waterfall extends React.Component {
 
     parseDate = dateString => {
         const matchResult = dateString.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z/);
-        return new Date(...matchResult.slice(1));
+        const dateTimeComponents = matchResult.slice(1).map(v => parseInt(v));
+        dateTimeComponents[1] -= 1;
+        return new Date(...dateTimeComponents);
     };
 
     fetchCategory = (category, page) => fetch(`https://newsapi.org/v2/top-headlines?country=tw&apiKey=${API_KEY}&category=${category}&pageSize=${PAGE_SIZE}&page=${page}`).then(res => res.ok && res.json());
@@ -77,7 +79,7 @@ class Waterfall extends React.Component {
             <div style={styles.container} onScroll={this.onContainerScroll}>
                 {articles.map((a, i) => {
                     return (
-                        <Article {...{key: `article_${i}`, ...a}}/>
+                        <Article {...{key: `article_${i}`, ...a, position: i}}/>
                     );
                 })}
             </div>

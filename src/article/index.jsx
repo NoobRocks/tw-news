@@ -4,12 +4,13 @@ import styles from "./styles";
 
 class Article extends React.PureComponent {
     render() {
-        const {author, datePublished, title, url, urlToImage, category} = this.props;
+        const {author, datePublished, title, url, urlToImage, category, position} = this.props;
         return (
             <div style={styles.container}>
                 <img style={styles.image} alt={title} title={title} src={urlToImage}/>
                 <div style={{width: "2%", flexShrink: "0"}}/>
                 <div style={styles.detailsContainer}>
+                    <div>{"#" + (position + 1)}</div>
                     <div>
                         <span>{"("}<i>{category}</i>{")"}</span>
                         <span>{" "}</span>
